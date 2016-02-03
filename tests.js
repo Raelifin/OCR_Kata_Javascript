@@ -111,3 +111,15 @@ QUnit.test("Rejects inputs with nonstandard (e.g. not space, underscore or pipe)
 		}
 	}, "Error Case 3 Passed!");
 });
+
+QUnit.test("Recieve all same characters from Use Case 1 input", function( assert ) {
+	var scannedCharacters = ocrDivideScannedEntry(ocrDivideInputFile(useCase0)[0]);
+	var targetCharacter = '?';
+	for (var i in scannedCharacters) {
+		if (i == 0) {
+			targetCharacter = ocrParseCharacter(scannedCharacters[i]);
+		} else {
+			assert.ok( ocrParseCharacter(scannedCharacters[i]) == targetCharacter , "Character "+i+" recognized as "+targetCharacter+"!");
+		}
+	}
+});
