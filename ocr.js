@@ -36,6 +36,39 @@ function ocrDivideScannedEntry(scannedEntry) {
 }
 
 /**
+ * Translates a digit into a scanned character.
+ * @param {number} digit Target character, between 0 and 9.
+ * @return {array} String of length 9 representing the character as ideally seen by the ocr system.
+ */
+function ocrGenerateOpticalCharacterFromDigit(digit) {
+	digit = parseInt(digit); //Safely handle non-numerical input.
+	switch (digit) {
+		case 0:
+			return ' _ '+'| |'+'|_|';
+		case 1:
+			return '   '+'  |'+'  |';
+		case 2:
+			return ' _ '+' _|'+'|_ ';
+		case 3:
+			return ' _ '+' _|'+' _|';
+		case 4:
+			return '   '+'|_|'+'  |';
+		case 5:
+			return ' _ '+'|_ '+' _|';
+		case 6:
+			return ' _ '+'|_ '+'|_|';
+		case 7:
+			return ' _ '+'  |'+'  |';
+		case 8:
+			return ' _ '+'|_|'+'|_|';
+		case 9:
+			return ' _ '+'|_|'+' _|';
+		default:
+			throw 'No ocr character found for input:'+digit;
+	}
+}
+
+/**
  * Attempts to parse a scanned character into an digit.
  * @param {string} Input of length 9. First three characters are the top of the scanned character, the next three are the middle, and the last three are the bottom.
  * @return {string} A single digit between 0 and 9, or a ? if the input does not match a known digit.
@@ -43,5 +76,10 @@ function ocrDivideScannedEntry(scannedEntry) {
 function ocrParseCharacter(rawCharacter) {
 	console.log(rawCharacter);
 	if (rawCharacter.match(/[^\s_|]/g)) throw "Bad input. Contains a character besides space, pipe, and underscore.";
-	return '0';
+	for (var i=0; i <= 9; i++) {
+		if (ocrGenerateOpticalCharacterFromDigit(i) == rawCharacter) {
+			return ''+i;
+		}
+	}
+	return '?';
 }

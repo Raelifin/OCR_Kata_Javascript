@@ -99,7 +99,7 @@ QUnit.test("Recieve 9 characters from simple input", function( assert ) {
 QUnit.test("Recieve all 0 characters from 000000000 input", function( assert ) {
 	var scannedCharacters = ocrDivideScannedEntry(ocrDivideInputFile(useCase0)[0]);
 	for (var i in scannedCharacters) {
-		assert.ok( ocrParseCharacter(scannedCharacters[i]) == 0 , "Character "+i+" recognized as 0!");
+		assert.ok( ocrParseCharacter(scannedCharacters[i]) == '0' , "Character "+i+" recognized as 0!");
 	}
 });
 
@@ -121,5 +121,12 @@ QUnit.test("Recieve all same characters from Use Case 1 input", function( assert
 		} else {
 			assert.ok( ocrParseCharacter(scannedCharacters[i]) == targetCharacter , "Character "+i+" recognized as "+targetCharacter+"!");
 		}
+	}
+});
+
+QUnit.test("Recieve all 1 characters from 111111111 input", function( assert ) {
+	var scannedCharacters = ocrDivideScannedEntry(ocrDivideInputFile(useCase1)[1]);
+	for (var i in scannedCharacters) {
+		assert.ok( ocrParseCharacter(scannedCharacters[i]) == '1' , "Character "+i+" recognized as 1!");
 	}
 });
