@@ -160,3 +160,11 @@ QUnit.test("Gives ?s for input characters that don't exactly match", function( a
 		}
 	}
 });
+
+QUnit.test("Acceptance test for User Story 1", function( assert ) {
+	var r = ocrDivideInputFile(useCase1).map(ocrDivideScannedEntry).map(function(entry){return entry.map(ocrParseCharacter).join('');});
+	for (var i = 0; i <= 9; i++) {
+		var target = Array(10).join(''+i);
+		assert.ok( r[i] == target , "Entry "+i+" recognized as "+target+"!");
+	}
+});
