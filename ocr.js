@@ -1,4 +1,9 @@
-function ocrDivideInputFile(fileAsString) { //Input is a string read from file. Outputs an array of entries, where each entry is an array of 3 strings of 27 characters each.
+/**
+ * Chops an input file into lines.
+ * @param {string} fileAsString Full file text as a single string.
+ * @return {array} An array of entries, where an entry is an array of 3 strings of length 27.
+ */
+function ocrDivideInputFile(fileAsString) {
 	var rawLines = fileAsString.split(/\r?\n/);
 	if (rawLines.length % 4 != 0) throw "Misshapen input. File has "+rawLines.length+". Expecting a multiple of 4.";
 	var resultLines = [];
@@ -17,14 +22,26 @@ function ocrDivideInputFile(fileAsString) { //Input is a string read from file. 
 	return resultLines;
 }
 
-function ocrDivideScannedEntry(scannedEntry) { //Input consists of an array of 3 strings of 27 characters each. Outputs array of 9 strings, corresponding to scanned characters.
+/**
+ * Breaks an entry into an array of scanned characters.
+ * @param {array} scannedEntry Array of 3 strings of length 27.
+ * @return {array} Array of 9 strings of length 9.
+ */
+function ocrDivideScannedEntry(scannedEntry) {
 	var resultCharacters = [];
 	for (var i=0; i < 9; i++) {
-		resultCharacters.push("");
+		resultCharacters.push(scannedEntry[0].substring(i*3,(i+1)*3)+scannedEntry[1].substring(i*3,(i+1)*3)+scannedEntry[2].substring(i*3,(i+1)*3));
 	}
 	return resultCharacters;
 }
 
-function ocrParseCharacter(rawCharacter) { //Input consists of a string of 9 characters. Outputs either a character between 0 and 9 or a ?.
+/**
+ * Attempts to parse a scanned character into an digit.
+ * @param {string} Input of length 9. First three characters are the top of the scanned character, the next three are the middle, and the last three are the bottom.
+ * @return {string} A single digit between 0 and 9, or a ? if the input does not match a known digit.
+ */
+function ocrParseCharacter(rawCharacter) {
+	console.log(rawCharacter);
+	if (rawCharacter.match(/[^\s_|]/g)) throw "Bad input. Contains a character besides space, pipe, and underscore.";
 	return '0';
 }

@@ -102,3 +102,12 @@ QUnit.test("Recieve all 0 characters from 000000000 input", function( assert ) {
 		assert.ok( ocrParseCharacter(scannedCharacters[i]) == 0 , "Character "+i+" recognized as 0!");
 	}
 });
+
+QUnit.test("Rejects inputs with nonstandard (e.g. not space, underscore or pipe) characters.", function( assert ) {
+	assert.throws(function(){
+		var scannedCharacters = ocrDivideScannedEntry(ocrDivideInputFile(errorCase3)[0]);
+		for (var i in scannedCharacters) {
+			ocrParseCharacter(scannedCharacters[i]);
+		}
+	}, "Error Case 3 Passed!");
+});
