@@ -85,3 +85,9 @@ QUnit.test("Accepts well-shaped input", function( assert ) {
 	assert.ok(ocrDivideInputFile(useCase0) != null, "Use Case 0 Passed!");
 	assert.ok(ocrDivideInputFile(useCase1) != null, "Use Case 1 Passed!");
 });
+
+QUnit.test("Rejects files without blank lines", function( assert ) {
+	assert.throws(function(){
+		ocrDivideInputFile(errorCase2);
+	}, "Error Case 0 Passed!");
+});
