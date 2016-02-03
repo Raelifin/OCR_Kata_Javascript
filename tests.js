@@ -89,5 +89,9 @@ QUnit.test("Accepts well-shaped input", function( assert ) {
 QUnit.test("Rejects files without blank lines", function( assert ) {
 	assert.throws(function(){
 		ocrDivideInputFile(errorCase2);
-	}, "Error Case 0 Passed!");
+	}, "Error Case 2 Passed!");
+});
+
+QUnit.test("Recieve nine characters from simple input", function( assert ) {
+	assert.ok( ocrDivideScannedEntry(ocrDivideInputFile(useCase0)[0]).length == 9 , "Use Case 0 Passed!");
 });
