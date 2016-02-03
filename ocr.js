@@ -74,7 +74,6 @@ function ocrGenerateOpticalCharacterFromDigit(digit) {
  * @return {string} A single digit between 0 and 9, or a ? if the input does not match a known digit.
  */
 function ocrParseCharacter(rawCharacter) {
-	console.log(rawCharacter);
 	if (rawCharacter.match(/[^\s_|]/g)) throw "Bad input. Contains a character besides space, pipe, and underscore.";
 	for (var i=0; i <= 9; i++) {
 		if (ocrGenerateOpticalCharacterFromDigit(i) == rawCharacter) {

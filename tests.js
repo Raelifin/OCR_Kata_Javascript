@@ -70,6 +70,15 @@ var useCase1 = ''+
 '|_||_||_||_||_||_||_||_||_|'+"\n"+
 ' _| _| _| _| _| _| _| _| _|'+"\n"+
 '                           ';
+var useCase2 = ''+
+' _| _  _  _  _  _  _  _  _ '+"\n"+
+'| || || || || || || || || |'+"\n"+
+'|_||_||_||_||_||_||_||_||_|'+"\n"+
+'                           '+"\n"+
+'                           '+"\n"+
+'  | _|  |  |  |  |  |  |  |'+"\n"+
+'  |  |  |  |  |  |  |  |  |'+"\n"+
+'                           ';
 
 
 QUnit.test("Rejects misshapen input", function( assert ) {
@@ -128,5 +137,26 @@ QUnit.test("Recieve all 1 characters from 111111111 input", function( assert ) {
 	var scannedCharacters = ocrDivideScannedEntry(ocrDivideInputFile(useCase1)[1]);
 	for (var i in scannedCharacters) {
 		assert.ok( ocrParseCharacter(scannedCharacters[i]) == '1' , "Character "+i+" recognized as 1!");
+	}
+});
+
+QUnit.test("Gives ?s for input characters that don't exactly match", function( assert ) {
+	var entries = ocrDivideInputFile(useCase2);
+	
+	var scannedCharacters1 = ocrDivideScannedEntry(entries[0]); //Should have a goof on character 0
+	for (var i in scannedCharacters1) {
+		if (i == 0) {
+			assert.ok( ocrParseCharacter(scannedCharacters1[i]) == '?' , "Character "+i+" recognized as ?");
+		} else {
+			assert.ok( ocrParseCharacter(scannedCharacters1[i]) == '0' , "Character "+i+" recognized as 0!");
+		}
+	}
+	var scannedCharacters2 = ocrDivideScannedEntry(entries[1]); //Should have a goof on character 1
+	for (var i in scannedCharacters2) {
+		if (i == 1) {
+			assert.ok( ocrParseCharacter(scannedCharacters2[i]) == '?' , "Character "+i+" recognized as ?");
+		} else {
+			assert.ok( ocrParseCharacter(scannedCharacters2[i]) == '1' , "Character "+i+" recognized as 1!");
+		}
 	}
 });
