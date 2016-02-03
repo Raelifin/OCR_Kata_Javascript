@@ -24,3 +24,7 @@ function ocrDivideScannedEntry(scannedEntry) { //Input consists of an array of 3
 	}
 	return resultCharacters;
 }
+
+function ocrParseCharacter(rawCharacter) { //Input consists of a string of 9 characters. Outputs either a character between 0 and 9 or a ?.
+	return '0';
+}

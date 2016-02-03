@@ -92,6 +92,13 @@ QUnit.test("Rejects files without blank lines", function( assert ) {
 	}, "Error Case 2 Passed!");
 });
 
-QUnit.test("Recieve nine characters from simple input", function( assert ) {
+QUnit.test("Recieve 9 characters from simple input", function( assert ) {
 	assert.ok( ocrDivideScannedEntry(ocrDivideInputFile(useCase0)[0]).length == 9 , "Use Case 0 Passed!");
+});
+
+QUnit.test("Recieve all 0 characters from 000000000 input", function( assert ) {
+	var scannedCharacters = ocrDivideScannedEntry(ocrDivideInputFile(useCase0)[0]);
+	for (var i in scannedCharacters) {
+		assert.ok( ocrParseCharacter(scannedCharacters[i]) == 0 , "Character "+i+" recognized as 0!");
+	}
 });
